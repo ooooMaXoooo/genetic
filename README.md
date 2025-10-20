@@ -77,7 +77,7 @@ C'est la méthode la plus simple. Après avoir cloné le dépôt, exécutez simp
 
 Si vous préférez compiler manuellement, suivez ces étapes.
 
-1.  Clonez le dépôt ( **N'OUBLIEZ PAS de remplacer l'URL** ) :
+1.  Clonez le dépôt :
     ```bash
     git clone https://github.com/ooooMaXoooo/genetic.git
     cd genetic
