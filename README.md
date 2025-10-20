@@ -51,8 +51,8 @@ C'est la méthode la plus simple. Après avoir cloné le dépôt, exécutez simp
 
 1.  Clonez ce dépôt:
     ```bash
-    git clone https://github.com/ooooMaXoooo/genetic.git 
-    cd [NOM_DU_REPO]
+    git clone https://github.com/ooooMaXoooo/genetic.git
+    cd genetic
     ```
 
 2.  Exécutez le script de votre choix :
