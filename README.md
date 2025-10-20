@@ -160,7 +160,7 @@ inline float fitness (const std::array<Vec<Dimension>, NumberOfVectors>& vecteur
     // Il contient 'NumberOfVectors' vecteurs, chacun de dimension 'Dimension'.
     
     // --- VOTRE LOGIQUE ICI ---
-    // L'exemple actuel (pour Dimension=1, NumberOfVectors=1) est f(x) = x²
+    // L'exemple actuel (pour Dimension=1, NumberOfVectors=1) est x ⟼ x²
     // que l'algorithme va chercher à maximiser.
     
     real sum = 0;   
