@@ -49,9 +49,9 @@ Avant de commencer, assurez-vous d'avoir les outils suivants installés sur votr
 
 C'est la méthode la plus simple. Après avoir cloné le dépôt, exécutez simplement le script correspondant à votre système.
 
-1.  Clonez ce dépôt ( **N'OUBLIEZ PAS de remplacer l'URL** par celle de votre dépôt !) :
+1.  Clonez ce dépôt:
     ```bash
-    git clone [https://github.com/](https://github.com/)[VOTRE_NOM_UTILISATEUR_GIT]/[NOM_DU_REPO.git]
+    git clone https://github.com/ooooMaXoooo/genetic.git 
     cd [NOM_DU_REPO]
     ```
 
