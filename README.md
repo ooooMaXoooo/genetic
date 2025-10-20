@@ -140,7 +140,7 @@ La personnalisation de l'algorithme se fait principalement à deux endroits :
 
 Le fichier `settings.h` est le centre de contrôle de l'algorithme. Vous pouvez y modifier :
 
-* **La population :** `PopulationSize`, `HalfPopulationSize`, etc.
+* **La population :** `HalfPopulationSize`, etc.
 * **La structure de l'individu :** `NumberOfVectors` (combien de vecteurs par agent) et `Dimension` (la dimension de chaque vecteur).
 * **Le problème :** `min_real` et `max_real` pour définir l'intervalle de recherche de votre fonction.
 * **La simulation :** `maxGen` (nombre de générations).
