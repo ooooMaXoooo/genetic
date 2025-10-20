@@ -79,8 +79,8 @@ Si vous préférez compiler manuellement, suivez ces étapes.
 
 1.  Clonez le dépôt ( **N'OUBLIEZ PAS de remplacer l'URL** ) :
     ```bash
-    git clone [https://github.com/](https://github.com/)[VOTRE_NOM_UTILISATEUR_GIT]/[NOM_DU_REPO.git]
-    cd [NOM_DU_REPO]
+    git clone https://github.com/ooooMaXoooo/genetic.git
+    cd genetic
     ```
 
 2.  Créez un dossier de `build` et configurez CMake :
