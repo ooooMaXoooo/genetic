@@ -20,46 +20,49 @@ Bibliographie :
     • un gène est une et une seule caractéristique d'un individu. 
     • Le locus est la position d'un gène dans son chromosome. (On peut parler d'un gène sans faire référence explicitement au
       chromosome dans lequel il est car un gène est toujours présent dans un unique chromosome)
-    • Un allèle est une version d'un même gène. Il vient alors que nous ne pouvons parler sans plus de précision d'un allèle.
-      Il faudra toujours parler de l'allèle d'un gène.
-    • le génome d'un individu est l'ensemble des allèles d'un individu en particulier
+    • Un allèle est une version d'un même gène. Il faut donc toujours parler de l'allèle d'un gène.
+    • le génome d'un individu est l'ensemble des allèles qui le composent
 
   
   • Processus d'évolution d'une population :
         Les individus les plus adaptés à leur environnement sont les plus à même de se reproduire. Ainsi, au fil du temps, les individus ayant le génome le plus
-      adapaté à leur environnement se reproduiront mieux que les autres, ce qui augmentera la proportion de meilleurs allèles au sein de la population.
-      Cependant, il faut que le génome puisse être modifier au fil des générations si l'environnement venait à changer. C'est (en partie) pour cette raison que 
-      nous observons parfois des mutations aléatoires dans les allèles des enfants : les enfants ne copient pas simplement certain chromosomes de leur parents.
+      adapté à leur environnement se reproduiront mieux que les autres, ce qui augmentera la proportion des meilleurs allèles au sein de la population.
+      Cependant, il faut que le génome puisse être modifié au fil des générations sans quoi il n'y aurait pas d'évolution. C'est (en partie) pour cette raison que 
+      nous observons parfois des mutations aléatoires dans les allèles des enfants.
 
-  • Reprodution entre les individus
+  • Reproduction entre les individus
       Un enfant issu de deux ou plusieurs parents "copie" une partie du génome de chacun de ses parents. Des mutations peuvent intervenir durant le processus.
 
 
 • Algorithmique :
-      Le but est de maximiser une fonction qui associe à un individu un score. Cette fonction est appelé fitness.
-    Il existe différents algoritmes permettant de répondre à ce problème, la descente de gradient, les réseaux de neuronnes, etc.
-    Parmi ces algorithmes, nous allons implémenter un algorithme dit évolutionnaire/<je sais plus, il faut que je regarde>.
-    Le but est simple, répliquer l'approche du vivant : seul les individus les plus adaptés survivent dans leur environnement.
+      Le but est de maximiser une fonction qui associe à un individu un score. Cette fonction est appelée fitness.
+    Il existe différents algorithmes permettant de répondre à ce problème : la descente de gradient, les réseaux de neurones, etc.
+    Parmi ces algorithmes, nous allons implémenter un algorithme dit évolutionnaire.
+    Le but est simple, répliquer l'approche du vivant : seuls les individus les plus adaptés survivent dans leur environnement.
     Il conviendra alors de définir proprement ce que sont les individus et ce qu'est un environnement.
-    on utilise les définitions données plus haut dans le point SVT. Pour convertir ces notions non-adaptées à
-    l'approche informatique. 
-    Subséquemment, afin de réaliser cet algorithme génétique (AG), il nous suffit de coder ce qu'est un gène et ce que sont les chromosomes en machine. cela nous
-    permet directement de savoir ce qu'est un individu et un population. Remarquons d'ailleurs que nous n'avons nul besoin de coder ce qu'est un environnemnt, la
-    fonction fitness fera office d'évaluateur dans l'environnement, et puisque les individus sont uniquement influencé par leur environnement lorsque qu'il est
-    question de qui est le plus adapté, nous n'avons pas besoin de savoir ce qu'est l'environnement.
+    Nous allons utiliser les définitions données plus haut dans le point SVT pour marquer le lien entre l'algorithme et le vivant. Le but étant de convertir ces
+    notions non-adaptées à l'approche informatique, en quelque chose de représentable.
 
-    Dans notre cas, nous cherchons à minimiser une fonction ƒ qui part d'un ℝ-espace euclidien E dans ℝ. Elle associe à chaque vecteur un score réel. C'est la
-    fonction le fitness. Plus le fitness est élever plus l'individu est adapté à son environnement.
-    Un individu sera coder par 2 chromosomes :
-    • Le premier servira à coder le vecteur représentant l'individu. Il sera composé d'autant de gènes que la dimension de E. Chaque gène codera une composante
-      du vecteur dans une base orthonormée.
-    • Le second coder la probabilité de mutation de chaque gène du premier chromosome. Il y aura donc autant de gènes que de gènes dans le premier chromosome
+    Subséquemment, afin de réaliser cet algorithme génétique (AG), il nous suffit de coder ce qu'est un gène et ce que sont les chromosomes en machine. cela nous
+    permet directement de savoir ce qu'est un individu et une population. Remarquons d'ailleurs que nous n'avons nul besoin de coder ce qu'est un environnement, la
+    fonction fitness fera office d'évaluateur dans l'environnement, et puisque les individus sont uniquement influencés par leur environnement lorsqu'il est
+    question de qui est le plus adapté, nous n'avons pas besoin de savoir ce qu'est l'environnement afin de sélectionner les 'meilleurs' individus.
+
+
+    Dans notre cas, nous cherchons à maximiser une fonction ƒ qui part d'un ℝ-espace euclidien E élevé à la puissance n dans ℝ. Elle associe à chaque n-uplet de
+    vecteurs un score réel. C'est la fonction fitness. Plus le fitness est élevé, plus l'individu est adapté à son environnement.
+
+    Un individu sera codé par n+1 chromosomes :
+    • Les n premiers serviront à coder chaque vecteur représentant l'individu. Ils seront composés d'autant de gènes que la dimension de E. Chaque gène codera une
+    composante du vecteur dans une base de E.
+    • Le dernier chromosome codera la probabilité de mutation de chaque chromosome, y compris lui-même. Il y aura donc autant de gènes que de chromosomes dans ce
+    dernier chromosome
 
     Afin de simplifier l'algorithmique, nous préfèrerons utiliser une représentation des gènes sous forme d'une liste de chiffres en binaire (c.f bibliographie).
-    Cependant, nos vecteurs vivent dans un ℝ-espace euclidien E, il faut donc un moyen de représenter nos vecteurs sous formes de nombre binaires.
-    Il vient alors (et c'était sûr de toute façon) qu'il faut discretiser notre espace E et lui donner des bornes afin de le rendre représentable en machine.
-    Nous allons utiliser deux fonctions qui permettent de passer de la représentations binaire à la vectorielle. Nous avons donc besoin tout d'abord de 
-    créer deux autres fonctions, celle qui fait la bijection d'un réel dans son écriture binaire.
+    Cependant, nos vecteurs vivent dans un ℝ-espace euclidien E, il faut donc un moyen de représenter nos vecteurs sous forme de nombres binaires.
+    Il vient alors qu'il faut discrétiser notre espace E et lui donner des bornes afin de le rendre représentable en machine.
+    Nous allons utiliser deux fonctions qui permettent de passer de la représentation binaire à la représentation réelle. Nous pourrons ainsi coder nos vecteurs 
+    sous forme binaire tout en pouvant les utiliser dans la fonction fitness, au moyen d'une transformation de chaque composante binaire sous forme réelle.
 
     Dans l'exemple ci-dessous, nous cherchons à minimiser la fonction x², i.e. maximiser la fonction -x².
     Nous allons coder un nombre réel sur 32 bits, ce qui donne 4 294 967 296 réels possibles.

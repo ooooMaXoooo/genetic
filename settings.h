@@ -1,7 +1,7 @@
 #pragma once
 
 /*
-    Pour avoir les couleurs des commentaire, il faut installer l'extension Better Comments (pour VS Code) :
+    Pour avoir les couleurs des commentaires, il faut installer l'extension Better Comments (pour VS Code) :
     https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments
 
 
@@ -11,7 +11,7 @@
 
 
 
-//======= Paramètres représentation nombres =======//
+//======= Paramètres de la représentation des nombres =======//
 
 using real = double;                                                                                //? le type qui représente un réel
 
@@ -26,7 +26,7 @@ using integer = uint32_t;                                                       
 
 
 
-//======= Paramètres algorithme génétique =======//
+//======= Paramètres de l'algorithme génétique =======//
 
 constexpr size_t HalfPopulationSize     = 3000;                                                     //? la moité de la taille de la population
 constexpr size_t PopulationSize         = 2*HalfPopulationSize;                                     //! la taille de la population
@@ -37,7 +37,7 @@ constexpr size_t Dimension          = 3;                                        
 constexpr size_t maxGen = 1000;                                                                     //? la dernière génération d'enfants
 
 
-//======= Paramètres sauvegarde fichiers =======//
+//======= Paramètres de sauvegarde dans des fichiers =======//
 
 #define directory "./data"                                                                          //? le dossier dans lequel sauvegarder les fichiers de sauvegarde
 #define extension_generations ".gen"                                                                //? l'extension des fichiers générés
