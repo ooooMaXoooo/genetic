@@ -28,9 +28,8 @@ using integer = uint32_t;                                                       
 
 //======= Paramètres algorithme génétique =======//
 
-constexpr size_t QuarterPopulationSize  = 1500;                                                     //? le quart de la taille de la population
-constexpr size_t HalfPopulationSize     = 2*QuarterPopulationSize;                                  //! la moité de la taille de la population
-constexpr size_t PopulationSize         = 4*QuarterPopulationSize;                                  //! la taille de la population
+constexpr size_t HalfPopulationSize     = 3000;                                                     //? la moité de la taille de la population
+constexpr size_t PopulationSize         = 2*HalfPopulationSize;                                     //! la taille de la population
 
 constexpr size_t NumberOfVectors    = 2;                                                            //? la taille d'un uplet de vecteurs
 constexpr size_t Dimension          = 3;                                                            //? la dimension de l'espace vectoriel E
