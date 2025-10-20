@@ -1,0 +1,45 @@
+Tu as absolument raison. Mes excuses pour la confusion, j'ai dû sauter une étape en te donnant les scripts `.bat` alors que tu attendais le `.gitignore` en premier.
+
+Voici le code complet pour ton fichier `.gitignore`.
+
+Crée un fichier nommé `.gitignore` (exactement ce nom, avec le point au début) à la racine de ton projet, au même niveau que `CMakeLists.txt`, et colle-y ce qui suit :
+
+```gitignore
+# Fichiers et dossiers générés par la compilation et CMake
+/build/
+/Release/
+/Debug/
+/install/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CMakeLists.txt.user
+compile_commands.json
+Makefile
+
+# Binaires compilés et fichiers objets
+*.exe
+*.dll
+*.so
+*.o
+*.a
+*.lib
+*.obj
+*.pdb
+*.ilk
+
+# Fichiers de configuration des IDE (Visual Studio, VS Code)
+.vscode/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.suo
+*.ncb
+
+# Fichiers système d'exploitation
+.DS_Store
+Thumbs.db
+
+# Fichiers log
+*.log
