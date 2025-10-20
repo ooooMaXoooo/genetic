@@ -119,16 +119,17 @@ Si vous préférez compiler manuellement, suivez ces étapes.
         cmake --build .
         ```
 
-5.  Exécutez le programme **en restant dans le dossier `build/`** :
+5.  L'exécutable sera créé directement à la racine du dossier `build/`.
+
+6.  Exécutez le programme **en restant dans le dossier `build/`** :
     ```bash
     # Sur Windows
-    .\Release\genetic.exe
+    .\genetic.exe
 
     # Sur Linux / macOS
     ./genetic
     ```
-    Le programme créera un dossier `data` (ex: `build/Release/data/`) pour y stocker ses résultats.
-
+    Le programme créera un dossier `data` (ex: `build/data/`) pour y stocker ses résultats.
 ---
 
 ## 🔧 Comment l'adapter à vos besoins
