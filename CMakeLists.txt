@@ -18,11 +18,17 @@ include_directories(
     include
 )
 
-# --- Définition de l'exécutable ---
-add_executable(genetic
+
+set (Genetic_SOURCES
     src/genetic.cpp
     src/randomizer.cpp
     src/Vec.cpp
+)
+
+# --- Définition de l'exécutable ---
+add_executable(genetic
+    src/main.cpp
+    ${Genetic_SOURCES}
 )
 
 # On s'assure que 'data' est au MÊME endroit

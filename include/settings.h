@@ -1,5 +1,4 @@
 #pragma once
-
 /*
     Pour avoir les couleurs des commentaires, il faut installer l'extension Better Comments (pour VS Code) :
     https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments
@@ -8,6 +7,8 @@
 ?   Un commentaire écrit de cette couleur, dans ce fichier uniquement, correspond à une valeur modifiable par l'utilisateur. (--> ? devant le commentaire)
 !   Un commentaire écrit de cette couleur, dans ce fichier uniquement, correspond à une valeur non modifiable par l'utilisateur. (--> ! devant le commentaire)
 */
+
+#include <cstdint>
 
 
 

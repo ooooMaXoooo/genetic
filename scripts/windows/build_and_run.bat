@@ -19,4 +19,3 @@ echo 3. Lancement de l'application...
 echo -----------------------------------
 :: Lance l'exécutable qui vient d'être compilé
 ..\..\build\genetic.exe
-pause

@@ -12,4 +12,3 @@ if not exist "..\..\build\genetic.exe" (
 
 :: Lance l'exécutable depuis le dossier 'build'
 ..\..\build\genetic.exe
-pause
