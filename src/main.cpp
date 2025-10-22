@@ -7,6 +7,8 @@ But :
 
 Bibliographie :
   [1] : http://magnin.plil.net/spip.php?article44
+  [2] : http://souqueta.free.fr/Project/files/TE_AG.pdf
+  [3] : https://fr.wikipedia.org/wiki/Algorithme_g%C3%A9n%C3%A9tique
 */
 
 
