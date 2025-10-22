@@ -65,6 +65,7 @@ C'est la méthode la plus simple. Après avoir cloné le dépôt, exécutez simp
     **Sur Linux / macOS :**
     ```bash
     # Rendez les scripts exécutables (une seule fois)
+    cd ./scripts/linux_macOS
     chmod +x *.sh
 
     # Exécutez le script de votre choix
@@ -184,22 +185,32 @@ inline float fitness (const std::array<Vec<Dimension>, NumberOfVectors>& vecteur
 
 ```
 .
-├── .gitignore             # Ignore les fichiers de build
-├── CMakeLists.txt         # Le "plan" de compilation
-├── LICENSE                # Votre licence (MIT)
-├── README.md              # Ce fichier
-├── build_and_run.bat      # (Script Windows)
-├── build_only.bat         # (Script Windows)
-├── run.bat                # (Script Windows)
-├── build_and_run.sh       # (Script Linux/macOS)
-├── build_only.sh          # (Script Linux/macOS)
-├── run.sh                 # (Script Linux/macOS)
-├── settings.h             # Paramètres principaux (Population, Dimensions...)
-├── genetic.cpp            # Fichier principal (main(), fitness(), genetic_algorithm())
-├── Vec.h / .cpp           # Classe utilitaire pour les vecteurs
-├── randomizer.h / .cpp    # Classe utilitaire pour la génération aléatoire
-├── utils.h                # Fonctions de conversion (bin_to_real...)
-└── data/                  # (N'est pas dans le dépôt, généré par le programme)
+│   .gitignore
+│   CMakeLists.txt
+│   LICENSE
+│   README.md
+│
+├───include
+│       randomizer.h
+│       settings.h
+│       utils.h
+│       Vec.h
+│
+├───scripts
+│   ├───linux_macOS
+│   │       build_and_run.sh
+│   │       build_only.sh
+│   │       run.sh
+│   │
+│   └───windows
+│           build_and_run.bat
+│           build_only.bat
+│           run.bat
+│
+└───src
+        genetic.cpp
+        randomizer.cpp
+        Vec.cp
 ```
 
 -----

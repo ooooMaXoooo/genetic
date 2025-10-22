@@ -1,6 +1,6 @@
 @echo off
 echo 1. Configuration de CMake...
-cmake -S . -B build
+cmake -S ..\.. -B ..\..\build
 if %errorlevel% neq 0 (
     echo Erreur lors de la configuration CMake.
     pause
@@ -8,7 +8,7 @@ if %errorlevel% neq 0 (
 )
 
 echo 2. Compilation du projet (Release)...
-cmake --build build --config Release
+cmake --build ..\..\build --config Release
 if %errorlevel% neq 0 (
     echo Erreur lors de la compilation.
     pause
@@ -18,5 +18,5 @@ if %errorlevel% neq 0 (
 echo 3. Lancement de l'application...
 echo -----------------------------------
 :: Lance l'exécutable qui vient d'être compilé
-.\build\genetic.exe
+..\..\build\genetic.exe
 pause

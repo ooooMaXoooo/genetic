@@ -14,11 +14,15 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR})
 # Et pour les générateurs "single-config" (comme Makefiles)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
+include_directories(
+    include
+)
+
 # --- Définition de l'exécutable ---
 add_executable(genetic
-    genetic.cpp
-    randomizer.cpp
-    Vec.cpp
+    src/genetic.cpp
+    src/randomizer.cpp
+    src/Vec.cpp
 )
 
 # On s'assure que 'data' est au MÊME endroit
