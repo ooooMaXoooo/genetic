@@ -8,11 +8,38 @@
 #include <array>
 #include <iostream>
 
+
+/**
+ * @class Individu
+ * @brief Represents an individual in a genetic algorithm with multiple chromosomes
+ * 
+ * @tparam nbVec Number of vectors (chromosomes) in the individual
+ * @tparam dim Dimension of each vector (number of genes per chromosome)
+ * 
+ * This class implements an individual for genetic algorithms with the following features:
+ * - Multiple chromosomes stored as binary integers
+ * - Self-adaptive mutation probabilities
+ * - Binary to real number conversion capabilities
+ */
 template <size_t nbVec, size_t dim>
 class Individu {
 public :
+    /**
+     * @typedef gene
+     * @brief Type definition for a single gene (integer)
+     */
     using gene = integer;
+
+    /**
+     * @typedef chromosome 
+     * @brief Type definition for a chromosome (array of genes)
+     */
     using chromosome = std::array<gene, dim>;
+
+    /**
+     * @typedef genome
+     * @brief Type definition for the complete genome (array of chromosomes)
+     */
     using genome = std::array<chromosome, nbVec>;
 
 private :
@@ -20,6 +47,17 @@ private :
     std::array<integer, nbVec + 1> m_proba; // le vecteur des probabilités de mutation de chaque chromosome : celui des vecteurs et lui-même. Cela donne n+1 probas
 public :
 
+    // ==================================================================================================================
+    // Constructeurs de la classe
+    // ==================================================================================================================
+
+    /**
+     * @brief Default constructor
+     * 
+     * Initializes the individual with:
+     * - Random genes for each chromosome
+     * - Default mutation probability of 0.9 for each chromosome
+     */
     Individu() {
         // Initialiser chaque gène aléatoirement
         for (size_t i = 0; i < nbVec; i++) {
@@ -34,27 +72,115 @@ public :
         }
     }
 
+
+
+
+
+    // ==================================================================================================================
+    // Getters / Setters
+    // ==================================================================================================================
+
+
+    // =========================================================
+    // Vecteurs
+    // =========================================================
+
+    /**
+     * @brief Gets the complete genome
+     * @return Const reference to the array of chromosomes
+     */
+    const genome& getGenome () const {
+        return m_infos;
+    }
+
+
+
+    /**
+     * @brief Gets a specific gene
+     * @param chromo Index of the chromosome
+     * @param gene_idx Index of the gene within the chromosome
+     * @return Value of the gene
+     */
+    gene getGene(size_t chromo, size_t gene_idx) const {
+        return m_infos[chromo][gene_idx];
+    }
+
+    /**
+     * @brief Sets a specific gene value
+     * @param indice_chromosome Index of the chromosome
+     * @param indice_gene Index of the gene within the chromosome
+     * @param value New value for the gene
+     */
+    void setGene (size_t indice_chromosome, size_t indice_gene, integer value) {
+        m_infos[indice_chromosome][indice_gene] = value;
+    }
+
+
+
+    /**
+     * @brief Gets a specific chromosome
+     * @param index Index of the chromosome
+     * @return Const reference to the chromosome
+     */
+    const chromosome& getChromosome(size_t index) const {
+        return m_infos[index];
+    }
+
+    /**
+     * @brief Sets an entire chromosome
+     * @param indice Index of the chromosome to replace
+     * @param c New chromosome
+     */
+    void setChromosome (size_t indice, chromosome c) {
+        m_infos[indice] = c;
+    }
+
+    // =========================================================
+    // Probabilités
+    // =========================================================
+
+    /**
+     * @brief Gets the mutation probability for a specific chromosome
+     * @param index Index of the chromosome
+     * @return Mutation probability as an integer
+     */
+    integer getMutationProba(size_t index) const {
+        return m_proba[index];
+    }
+
+    /**
+     * @brief Sets the mutation probability for a specific chromosome
+     * @param index Index of the chromosome
+     * @param value New probability value
+     */
+    void setMutationProba(size_t index, integer value) {
+        m_proba[index] = value;
+    }
+
+
+
+
+
+
+    // ==================================================================================================================
+    // Fonctions génétiques
+    // ==================================================================================================================
+
+
+    /**
+     * @brief Performs mutation on the individual
+     * 
+     * Applies bit-flip mutations on:
+     * - Genes in chromosomes based on their respective mutation probabilities
+     * - Mutation probabilities themselves (self-adaptation)
+     */
     void Mutate() {
         for (size_t i=0; i<nbVec; i++) {
-            while (Randomizer::getProb() <= bin_to_proba(m_proba[i])) { // un while pour avoir possiblement plusieurs mutations
-                // on sait qu'il doit y avoir une mutation dans le chromosome i :
-                // nous devons maintenant déterminer le gène de locus l qui subit une mutation
-                int l = Randomizer::getInt(0, dim-1);
-
-                //nous avons le chromosome et la gène, déterminons maintenant le bit à modifer :
-                int b = Randomizer::getInt(0, Nb_bin-1);
-
-                /*// on inverse le bit au rang b du gène l du chromosome i:
-                integer mask = 1 << b;
-                integer val = m_infos[i][l];
-
-                integer bit_rang_b = (val & mask) >>  b;
-                integer reste = (val & (~mask));
-
-                m_infos[i][l] = reste + ((bit_rang_b == 0 ? 1 : 0) << b);*/
-
-                // Version simplifiée avec XOR
-                m_infos[i][l] ^= (integer(1) << b);
+            // un while pour avoir possiblement plusieurs mutations
+            while (Randomizer::getProb() <= bin_to_proba(m_proba[i])) {
+                int l = Randomizer::getInt(0, dim-1); // le locus du gène à modifier
+                int b = Randomizer::getInt(0, Nb_bin-1); // le bit à modifier
+                m_infos[i][l] ^= (integer(1) << b); // on inverse le bit au rang b du gène l du chromosome i
             }
         }
 
@@ -66,46 +192,40 @@ public :
         }
     }
 
-    const std::array<std::array<integer, dim>, nbVec>& getVectors () const {
-        return m_infos;
-    }
-
-    void setGene (size_t indice_chromosome, size_t indice_gene, integer value) {
-        m_infos[indice_chromosome][indice_gene] = value;
-    }
-
-    void setChromosome (size_t indice, chromosome c) {
-        m_infos[indice] = c;
-    }
-
-    // Getters/setters pour les probas
-    integer getMutationProba(size_t index) const {
-        return m_proba[index];
-    }
-
-    void setMutationProba(size_t index, integer value) {
-        m_proba[index] = value;
-    }
-
-    // Getter pour accéder au chromosome complet
-    const chromosome& getChromosome(size_t index) const {
-        return m_infos[index];
-    }
-
-    // Accesseur pour un gène spécifique
-    gene getGene(size_t chromo, size_t gene_idx) const {
-        return m_infos[chromo][gene_idx];
-    }
 
 
-    // Affichage
+
+    // ==================================================================================================================
+    // Fonctions de gestion des fichiers
+    // ==================================================================================================================
+
+
+    void save_agent(const Agent& agent, const std::string& filename);
+    Agent load_agent(const std::string& filename);
+
+
+
+
+
+    // ==================================================================================================================
+    // Operator overloading
+    // ==================================================================================================================
+
+    /**
+     * @brief Output stream operator overload
+     * @param os Output stream
+     * @param vec Individual to output
+     * @return Modified output stream
+     * 
+     * Converts binary representation to real numbers and outputs vectors
+     */
     friend std::ostream& operator<<(std::ostream& os, const Individu& vec) {
         // on doit transformer l'écriture binaire de chaque vecteur en une écriture réelle
 
         for (size_t i=0; i < nbVec ; i++) {
             Vec<dim> c {};
             for (size_t j=0; j < dim; j++) {
-                c[j] += bin_to_real(vec.m_infos[i][j]);// * Vec<dim>::unit(j);
+                c[j] += bin_to_real(vec.m_infos[i][j]);
             }
 
             // a cette ligne, on vient de finir le chromosome c
@@ -114,51 +234,4 @@ public :
         }
         return os;
     }
-
-
-    // ! NE FONCTIONNE ABSOLUMENT PAS
-    /*
-    // Sauvegarder un agent
-    void save_agent(const Agent& agent, const std::string& filename) {
-        std::ofstream file(filename, std::ios::binary);
-        
-        // Sauvegarder les chromosomes
-        for (size_t i = 0; i < NumberOfVectors; i++) {
-            for (size_t j = 0; j < Dimension; j++) {
-                integer gene = agent.getGene(i, j);
-                file.write(reinterpret_cast<const char*>(&gene), sizeof(integer));
-            }
-        }
-        
-        // Sauvegarder les probas de mutation
-        for (size_t i = 0; i <= NumberOfVectors; i++) {
-            integer proba = agent.getMutationProba(i);
-            file.write(reinterpret_cast<const char*>(&proba), sizeof(integer));
-        }
-    }
-
-    // Charger un agent
-    Agent load_agent(const std::string& filename) {
-        Agent agent;
-        std::ifstream file(filename, std::ios::binary);
-        
-        // Charger les chromosomes
-        for (size_t i = 0; i < NumberOfVectors; i++) {
-            for (size_t j = 0; j < Dimension; j++) {
-                integer gene;
-                file.read(reinterpret_cast<char*>(&gene), sizeof(integer));
-                agent.setGene(i, j, gene);
-            }
-        }
-        
-        // Charger les probas de mutation
-        for (size_t i = 0; i <= NumberOfVectors; i++) {
-            integer proba;
-            file.read(reinterpret_cast<char*>(&proba), sizeof(integer));
-            agent.setMutationProba(i, proba);
-        }
-        
-        return agent;
-    }
-    */
 };
