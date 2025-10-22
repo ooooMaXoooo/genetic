@@ -1,9 +1,9 @@
 /*
-Auteur  : ...
+Auteur  : Lemoine Maxence
 Date    : 18/10/2025
 But : 
   Nous essayons d'implémenter un algorithme génétique. Pour ce faire, nous allons nous appuyer sur différents travaux, notamment sur 
-  celui de ... : http://magnin.plil.net/spip.php?article44
+  celui de  Vincent MAGNIN : http://magnin.plil.net/spip.php?article44
 
 Bibliographie :
   [1] : http://magnin.plil.net/spip.php?article44
