@@ -82,7 +82,7 @@ Bibliographie :
 #include "randomizer.h"
 #include <iostream>
 
-int main(int argc, char* argv) {
+int main(int argc, char** argv) {
     Randomizer::Init();
     genetic_algorithm();
 

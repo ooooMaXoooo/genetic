@@ -1,7 +1,8 @@
 #pragma once
 /**
  * @file genetic.h
- * @brief Declarations for the genetic algorithm components (types and operations).
+ * @brief Declarations for the genetic algorithm components (types and
+ * operations).
  *
  * This header declares aliases and core functions used to implement a
  * generational genetic algorithm, including agent evaluation, selection,
@@ -15,15 +16,12 @@
  * the broader program and are not defined here.
  */
 
-
-
-#include "settings.h"
 #include "Individu.h"
+#include "settings.h"
+
 
 #include <array>
 #include <utility>
-
-
 
 /**
  * @typedef Agent
@@ -53,9 +51,6 @@ using Population = std::array<Agent, PopulationSize>;
  */
 using HalfPopulation = std::array<Agent, HalfPopulationSize>;
 
-
-
-
 /**
  * @brief Evaluate the fitness (or objective) of a single agent.
  *
@@ -68,9 +63,8 @@ using HalfPopulation = std::array<Agent, HalfPopulationSize>;
  *       where explicit stochastic evaluation is intended and accounted for by
  *       the algorithm.
  */
-real eval_agent (const Agent& a);
+real eval_agent(const Agent &a);
 
- 
 /**
  * @brief Perform tournament selection on a population to build a half-size
  * selection pool of parent candidates.
@@ -84,9 +78,7 @@ real eval_agent (const Agent& a);
  *       tournament selection policy configured elsewhere (ties, tournament
  *       size and replacement policy are implementation-specific).
  */
-HalfPopulation selection_tournoi(const Population& p);
-
-
+HalfPopulation selection_tournoi(const Population &p);
 
 /**
  * @brief Produce two offspring by crossing over two parent agents.
@@ -102,9 +94,7 @@ HalfPopulation selection_tournoi(const Population& p);
  *       metadata (e.g., repair, normalization). Mutation is typically applied
  *       in a separate step.
  */
-std::pair<Agent, Agent> cross_over (const Agent& p1, const Agent& p2);
-
-
+std::pair<Agent, Agent> cross_over(const Agent &p1, const Agent &p2);
 
 /**
  * @brief Apply crossover to a HalfPopulation to produce a full Population of
@@ -122,9 +112,7 @@ std::pair<Agent, Agent> cross_over (const Agent& p1, const Agent& p2);
  * @post Returned Population contains newly created agents ready for
  *       subsequent mutation and evaluation.
  */
-Population cross_over_half_pop (HalfPopulation& hp);
-
-
+Population cross_over_half_pop(HalfPopulation &hp);
 
 /**
  * @brief Apply mutation operators to every agent in the provided population.
@@ -140,9 +128,7 @@ Population cross_over_half_pop (HalfPopulation& hp);
  * @note Mutation intensity, per-gene probabilities, and any constraints or
  *       repair logic are defined by the implementation and configuration.
  */
-void mutations (Population* p);
-
-
+void mutations(Population *p);
 
 /**
  * @brief Create or evolve a generation for a genetic algorithm population.
@@ -172,11 +158,13 @@ void mutations (Population* p);
  *       indicated by \p indice (individuals and associated metadata updated,
  *       fitnesses evaluated, and any internal counters advanced).
  *
- * @note • Saving behavior (file format, naming, location) is implementation-specific and governed by other components of the codebase.
- * @note • Side effects may include dynamic allocation of individuals, mutation of existing individuals, and I/O when \p is_saving_in_file is true.
+ * @note • Saving behavior (file format, naming, location) is
+ * implementation-specific and governed by other components of the codebase.
+ * @note • Side effects may include dynamic allocation of individuals, mutation
+ * of existing individuals, and I/O when \p is_saving_in_file is true.
  */
-void create_generation (size_t indice, Population* p, bool is_saving_in_file = false);
-
+void create_generation(size_t indice, Population *p,
+                       bool is_saving_in_file = false);
 
 /**
  * @brief Print or log the best agent from a population.
@@ -188,8 +176,7 @@ void create_generation (size_t indice, Population* p, bool is_saving_in_file = f
  *       algorithm policies. Output destination (console, log file, structured
  *       report) is implementation-defined.
  */
-void print_best_agent(const Population& p);
-
+void print_best_agent(const Population &p);
 
 /**
  * @brief Top-level entry point for running the genetic algorithm.
@@ -202,4 +189,4 @@ void print_best_agent(const Population& p);
  *       and may perform I/O, profiling and resource management as required by
  *       the program.
  */
-void genetic_algorithm ();
+void genetic_algorithm();

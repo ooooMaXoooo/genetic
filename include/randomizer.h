@@ -19,9 +19,9 @@
  * - Convenience functions:
  *     - getProb(): returns a real in [0.0, 1.0) (uses the configured real type
  *       alias from settings.h).
- *     - getInt(int min, int max): returns an integer in the inclusive range
+ *     - getInt(int64_t min, int64_t max): returns an integer in the inclusive range
  *       [min, max].
- *     - getDistinctIntCouple(int min, int max): returns a pair of two
+ *     - getDistinctIntCouple(int64_t min, int64_t max): returns a pair of two
  *       distinct integers sampled uniformly from [min, max]. Requires
  *       min < max (checked via assert).
  *     - shuffle(std::array<T, size>&): shuffles the elements of a std::array
@@ -43,9 +43,9 @@
  * @code
  * // Ensure settings.h defines `real` (e.g., using real = double;)
  * double p = Randomizer::getProb();              // probability in [0,1)
- * int x = Randomizer::getInt(0, 10);             // integer in [0,10]
+ * int64_t x = Randomizer::getInt(0, 10);             // integer in [0,10]
  * auto pair = Randomizer::getDistinctIntCouple(0, 5); // two distinct ints 0..5
- * std::array<int,4> a = {1,2,3,4};
+ * std::array<int64_t,4> a = {1,2,3,4};
  * Randomizer::shuffle(a);                        // shuffles a in-place
  * @endcode
  *
@@ -55,59 +55,67 @@
 #pragma once
 
 #include <algorithm>
+#include <cassert>
+#include <cstdint>
 #include <random>
 #include <utility>
-#include "settings.h"
-#include <cassert>
 
+#include "settings.h"
 
 class Randomizer {
 private:
-    static std::mt19937 generator;
-    static std::uniform_real_distribution<real> distrib_proba;
-    static bool initialized;
+  static std::mt19937 generator;
+  static std::uniform_real_distribution<real> distrib_proba;
+  static bool initialized;
 
 public:
-    Randomizer() = delete;
-   
-    static void Init() {
-        std::random_device rd;
-        generator.seed(rd());
-        distrib_proba = std::uniform_real_distribution<real>(0.0, 1.0);
-        initialized = true;
-    }
-    
-    static real getProb() {
-        if (!initialized) Init();
+  Randomizer() = delete;
 
-        return distrib_proba(generator);
-    }
-    
-    static int getInt(int min, int max) {
-        if (!initialized) Init();
-        
-        std::uniform_int_distribution<int> d(min, max);
-        return d(generator);
+  static void Init() {
+    std::random_device rd;
+    generator.seed(rd());
+    distrib_proba = std::uniform_real_distribution<real>(0.0, 1.0);
+    initialized = true;
+  }
+
+  static real getProb() {
+    if (!initialized) {
+      Init();
     }
 
-    static std::pair<int, int> getDistinctIntCouple(int min, int max) {
-        assert(min < max && "min must be less than max for getDistinctIntCouple");
-        if (!initialized) Init();
+    return distrib_proba(generator);
+  }
 
-        std::uniform_int_distribution<int> d(min, max);
-        int x1 = d(generator);
-        int x2 = 0;
-
-        do {
-            x2 = d(generator);
-        } while (x2 == x1);
-
-        return {x1, x2};
+  static int64_t getInt(int64_t min, int64_t max) {
+    if (!initialized) {
+      Init();
     }
 
-    template <typename T, size_t size>
-    static void shuffle(std::array<T, size>& arr) {
-        if (!initialized) Init();
-        std::shuffle(arr.begin(), arr.end(), generator);
+    std::uniform_int_distribution<int64_t> d(min, max);
+    return d(generator);
+  }
+
+  static std::pair<int64_t, int64_t> getDistinctIntCouple(int64_t min, int64_t max) {
+    assert(min < max && "min must be less than max for getDistinctIntCouple");
+    if (!initialized) {
+      Init();
     }
+
+    std::uniform_int_distribution<int64_t> d(min, max);
+    int64_t x1 = d(generator);
+    int64_t x2 = d(generator);
+
+    while (x1 == x2) {
+      x2 = d(generator);
+    }
+    return {x1, x2};
+  }
+
+  template <typename T, size_t size>
+  static void shuffle(std::array<T, size>& arr) {
+    if (!initialized) {
+      Init();
+    }
+    std::shuffle(arr.begin(), arr.end(), generator);
+  }
 };
